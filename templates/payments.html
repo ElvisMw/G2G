@@ -15,7 +15,6 @@
             <th>Deductions</th>
             <th>M-Pesa Code</th>
             <th>Receipt</th>
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -36,9 +35,6 @@
                 {% if payment.receipt_image %}
                 <a href="{{ payment.receipt_image.url }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a>
                 {% else %}-{% endif %}
-            </td>
-            <td>
-                <a href="/payments/{{ payment.id }}/" class="btn btn-sm btn-outline-info">View</a>
             </td>
         </tr>
         {% empty %}
