@@ -1,9 +1,9 @@
 /* Calligraphic (Cursive) Slogan */
 .caligraphic {
-  font-family: 'Dancing Script', 'Pacifico', 'Brush Script MT', cursive, sans-serif !important;
+  font-family: 'Great Vibes', 'Dancing Script', 'Pacifico', 'Brush Script MT', cursive, sans-serif;
   font-style: italic;
   letter-spacing: 0.01em;
-  font-weight: 700;
+  font-weight: 600;
 }
 /* KPI CARDS */
 .kpi-card {
@@ -221,7 +221,7 @@ body {
 /* TYPOGRAPHY */
 .main-heading {
   font-size: 2.8rem;
-  font-family: 'Poppins', 'Inter', 'Segoe UI', Arial, sans-serif !important;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   font-weight: 800;
   letter-spacing: 0.01em;
   color: var(--color-text);

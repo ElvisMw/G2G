@@ -1,0 +1,122 @@
+/* Professional, large main heading */
+/* Calligraphy style for main heading */
+.main-heading {
+    font-size: 3.5rem;
+    font-family: 'Great Vibes', cursive;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: #f3f4f6;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.18), 0 1px 0 #22c55e;
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+@media (max-width: 900px) {
+    .main-heading {
+        font-size: 1.5rem;
+    }
+}
+/* Circular outline for sidebar logo */
+/* Green glass effect and animated glow for sidebar logo */
+/* Blue glass effect and animated glow for enlarged sidebar logo */
+.sidebar-logo {
+    border-radius: 50%;
+    border: 6px solid rgba(37, 99, 235, 0.45); /* blue border */
+    box-shadow: 0 4px 32px 0 rgba(37,99,235,0.18), 0 2px 12px rgba(0,0,0,0.18), 0 0 0 0 rgba(37,99,235,0.5);
+    background: linear-gradient(135deg, rgba(37,99,235,0.18) 0%, rgba(36,41,51,0.18) 100%);
+    padding: 10px;
+    max-width: 100%;
+    height: auto;
+    min-height: 110px;
+    max-height: 180px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: max-height 0.2s;
+    animation: logo-glow-blue 2.2s infinite alternate;
+}
+
+@keyframes logo-glow-blue {
+    0% {
+        box-shadow: 0 4px 32px 0 rgba(37,99,235,0.18), 0 2px 12px rgba(0,0,0,0.18), 0 0 0 0 rgba(37,99,235,0.5);
+    }
+    100% {
+        box-shadow: 0 4px 48px 0 rgba(37,99,235,0.32), 0 2px 12px rgba(0,0,0,0.18), 0 0 48px 12px rgba(37,99,235,0.45);
+    }
+}
+@media (max-width: 900px) {
+    .sidebar-logo {
+        max-height: 80px;
+        min-height: 56px;
+    }
+}
+@media (max-width: 900px) {
+    .sidebar-logo {
+        max-height: 56px;
+        min-height: 40px;
+    }
+}
+/* Responsive sidebar logo */
+.sidebar-logo {
+    max-width: 100%;
+    height: auto;
+    min-height: 64px;
+    max-height: 120px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: max-height 0.2s;
+}
+@media (max-width: 900px) {
+    .sidebar-logo {
+        max-height: 56px;
+        min-height: 40px;
+    }
+}
+/* Black & Glass SaaS Theme */
+body {
+    background: linear-gradient(120deg, #181c24 0%, #232a36 100%);
+    color: #f3f4f6;
+}
+.saas-vertical-layout {
+    background: none;
+}
+.saas-sidebar {
+    background: rgba(24,28,36,0.98);
+    color: #fff;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 2px 0 24px rgba(0,0,0,0.18);
+}
+.saas-sidebar .logo {
+    background: rgba(255,255,255,0.08);
+}
+.saas-sidebar nav a {
+    color: #e5e7eb;
+    background: none;
+}
+.saas-sidebar nav a.active, .saas-sidebar nav a:hover {
+    background: rgba(255,255,255,0.13);
+    color: #0d6efd !important;
+}
+.saas-main-content header, .saas-main-content footer {
+    background: rgba(24,28,36,0.98) !important;
+    color: #f3f4f6;
+    border-radius: 0 0 18px 18px;
+    border: none;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+.saas-card.glass {
+    background: rgba(36,41,51,0.45);
+    color: #f3f4f6;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background: #232a36;
+}
+::-webkit-scrollbar-thumb {
+    background: #181c24;
+    border-radius: 8px;
+}
