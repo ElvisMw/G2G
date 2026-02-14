@@ -6,7 +6,6 @@ body {
     color: #222;
     font-size: 1.05rem;
 }
-}
 header.bg-dark {
     background: #1e293b !important;
     box-shadow: 0 4px 24px rgba(30,41,59,0.12);
@@ -45,7 +44,7 @@ footer.bg-dark {
     margin-bottom: 2rem;
     font-size: 1.08rem;
 }
-}
+
 ::-webkit-scrollbar {
     width: 8px;
     background: #e0e7ff;

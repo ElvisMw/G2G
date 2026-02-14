@@ -1,125 +1,303 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="alert alert-primary d-flex align-items-center" role="alert">
-            <div class="me-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0d6efd" class="bi bi-speedometer2" viewBox="0 0 16 16">
-                  <path d="M8 4a.5.5 0 0 1 .5.5v4.707l2.146 2.147a.5.5 0 0 1-.708.708l-2.25-2.25A.5.5 0 0 1 7.5 9V4.5A.5.5 0 0 1 8 4z"/>
-                  <path d="M3.278 14A7 7 0 1 1 14 8a7 7 0 0 1-10.722 6zM8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14z"/>
-                </svg>
-            </div>
-            <div>
-                <h4 class="alert-heading mb-1">Welcome to Glory to God Vehicles Dashboard</h4>
-                <p class="mb-0">Today is <strong>{{ now|date:'l, F j, Y' }}</strong>. Here is a summary of your fleet and finances.</p>
-            </div>
-        </div>
+
+<!-- ================= Dashboard Header ================= -->
+<div class="dashboard-header mb-5">
+    <div>
+        <h2 class="dashboard-title">Dashboard Overview</h2>
+        <p class="dashboard-subtitle">
+            {{ now|date:'l, F j, Y' }} • Fleet performance and financial summary
+        </p>
     </div>
 </div>
 
-<div class="row g-4 mb-4">
-    <div class="col-md-3">
-        <div class="card text-center border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0d6efd" class="bi bi-truck" viewBox="0 0 16 16">
-                      <path d="M0 1.5A.5.5 0 0 1 .5 1h9a.5.5 0 0 1 .5.5V3h2.5A1.5 1.5 0 0 1 14 4.5V6h1.5a.5.5 0 0 1 .5.5v2.086a1.5 1.5 0 0 1-.44 1.06l-2.5 2.5A1.5 1.5 0 0 1 11.086 13H10.5a1.5 1.5 0 0 1-1.415-1H2.5A1.5 1.5 0 0 1 1 10.5v-8A.5.5 0 0 1 1.5 2H2V1.5z"/>
-                    </svg>
-                </div>
-                <div class="fs-3 fw-bold text-primary">{{ total_vehicles|default:0 }}</div>
-                <div class="text-muted">Vehicles</div>
+
+<!-- ================= KPI SECTION ================= -->
+<div class="row g-4 mb-5">
+
+    <!-- Vehicles -->
+    <div class="col-lg-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-icon bg-primary-soft">
+                <i class="bi bi-truck"></i>
+            </div>
+            <div class="kpi-content">
+                <h3>{{ total_vehicles|default:0 }}</h3>
+                <span>Total Vehicles</span>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-center border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-person-badge" viewBox="0 0 16 16">
-                      <path d="M6.5 2a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zM2 13s-1 0-1-1 1-4 7-4 7 3 7 4-1 1-1 1H2zm13-1c0-1.104-2.686-3-7-3s-7 1.896-7 3 2.686 3 7 3 7-1.896 7-3z"/>
-                    </svg>
-                </div>
-                <div class="fs-3 fw-bold text-success">{{ total_riders|default:0 }}</div>
-                <div class="text-muted">Riders</div>
+
+    <!-- Riders -->
+    <div class="col-lg-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-icon bg-success-soft">
+                <i class="bi bi-person-badge"></i>
+            </div>
+            <div class="kpi-content">
+                <h3>{{ total_riders|default:0 }}</h3>
+                <span>Active Riders</span>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-center border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#dc3545" class="bi bi-cash-coin" viewBox="0 0 16 16">
-                      <path d="M11 1a2 2 0 0 1 2 2v1h1.5A1.5 1.5 0 0 1 16 5.5v5A1.5 1.5 0 0 1 14.5 12H13v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H1.5A1.5 1.5 0 0 1 0 10.5v-5A1.5 1.5 0 0 1 1.5 4H3V3a2 2 0 0 1 2-2h6zm-6 1a1 1 0 0 0-1 1v1h8V3a1 1 0 0 0-1-1H5zm9 3H2a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5z"/>
-                    </svg>
-                </div>
-                <div class="fs-3 fw-bold text-danger">Ksh {{ total_outstanding|default:'0' }}</div>
-                <div class="text-muted">Outstanding Liabilities</div>
+
+    <!-- Outstanding -->
+    <div class="col-lg-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-icon bg-danger-soft">
+                <i class="bi bi-cash-coin"></i>
+            </div>
+            <div class="kpi-content">
+                <h3>Ksh {{ total_outstanding|default:0|floatformat:0 }}</h3>
+                <span>Outstanding Liabilities</span>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-center border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0dcaf0" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
-                      <path d="M0 0h1v15h15v1H0V0zm10 10h2v3h-2v-3zm-3-3h2v6H7V7zm-3 2h2v4H4V9z"/>
-                    </svg>
-                </div>
-                <div class="fs-3 fw-bold text-info">Ksh {{ total_revenue|default:'0' }}</div>
-                <div class="text-muted">Monthly Revenue</div>
+
+    <!-- Revenue -->
+    <div class="col-lg-3 col-md-6">
+        <div class="kpi-card">
+            <div class="kpi-icon bg-info-soft">
+                <i class="bi bi-bar-chart-line"></i>
+            </div>
+            <div class="kpi-content">
+                <h3>Ksh {{ total_revenue|default:0|floatformat:0 }}</h3>
+                <span>Monthly Revenue</span>
             </div>
         </div>
+    </div>
+
+</div>
+
+
+<!-- ================= Recent Activity ================= -->
+<div class="dashboard-section">
+
+    <div class="section-header">
+        <h3>Recent Activity</h3>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Payments -->
+        <div class="col-lg-4">
+            <div class="activity-card">
+                <h6 class="activity-title">Recent Payments</h6>
+                <ul class="activity-list">
+                    {% for payment in recent_payments %}
+                        <li>
+                            <div class="activity-info">
+                                <span class="activity-date">
+                                    {{ payment.date_paid|date:'M d' }}
+                                </span>
+                                <span class="activity-text">
+                                    {{ payment.paid_from }} → {{ payment.paid_to }}
+                                </span>
+                            </div>
+                            <span class="badge badge-soft-primary">
+                                Ksh {{ payment.amount|floatformat:0 }}
+                            </span>
+                        </li>
+                    {% empty %}
+                        <li class="empty-state">No recent payments.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Maintenance -->
+        <div class="col-lg-4">
+            <div class="activity-card">
+                <h6 class="activity-title">Recent Maintenance</h6>
+                <ul class="activity-list">
+                    {% for record in recent_maintenance %}
+                        <li>
+                            <div class="activity-info">
+                                <span class="activity-date">
+                                    {{ record.date|date:'M d' }}
+                                </span>
+                                <span class="activity-text">
+                                    {{ record.category }}
+                                </span>
+                            </div>
+                            <span class="badge badge-soft-warning">
+                                Ksh {{ record.amount|floatformat:0 }}
+                            </span>
+                        </li>
+                    {% empty %}
+                        <li class="empty-state">No recent maintenance.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contracts -->
+        <div class="col-lg-4">
+            <div class="activity-card">
+                <h6 class="activity-title">Recent Contracts</h6>
+                <ul class="activity-list">
+                    {% for contract in recent_contracts %}
+                        <li>
+                            <div class="activity-info">
+                                <span class="activity-date">
+                                    {{ contract.start_date|date:'M d' }}
+                                </span>
+                                <span class="activity-text">
+                                    Vehicle {{ contract.vehicle_id|slice:":6" }}...
+                                </span>
+                            </div>
+                            <span class="badge badge-soft-success">
+                                {{ contract.status }}
+                            </span>
+                        </li>
+                    {% empty %}
+                        <li class="empty-state">No recent contracts.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-light fw-bold">Recent Activity</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h6 class="fw-bold">Recent Payments</h6>
-                        <ul class="list-group list-group-flush small">
-                            {% for payment in recent_payments %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ payment.date_paid|date:'M d' }}: {{ payment.paid_from }} → {{ payment.paid_to }}</span>
-                                    <span class="badge bg-primary">Ksh {{ payment.amount }}</span>
-                                </li>
-                            {% empty %}
-                                <li class="list-group-item">No recent payments.</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 class="fw-bold">Recent Maintenance</h6>
-                        <ul class="list-group list-group-flush small">
-                            {% for record in recent_maintenance %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ record.date|date:'M d' }}: {{ record.category }}</span>
-                                    <span class="badge bg-warning text-dark">Ksh {{ record.amount }}</span>
-                                </li>
-                            {% empty %}
-                                <li class="list-group-item">No recent maintenance.</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h6 class="fw-bold">Recent Contracts</h6>
-                        <ul class="list-group list-group-flush small">
-                            {% for contract in recent_contracts %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>{{ contract.start_date|date:'M d' }}: Vehicle {{ contract.vehicle_id|slice:":6" }}...</span>
-                                    <span class="badge bg-success">{{ contract.status }}</span>
-                                </li>
-                            {% empty %}
-                                <li class="list-group-item">No recent contracts.</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<style>
+/* ================= Layout ================= */
+
+.dashboard-title {
+    font-size: 1.9rem;
+    font-weight: 600;
+}
+
+.dashboard-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* ================= KPI Cards ================= */
+
+.kpi-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: 0.25s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.kpi-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.kpi-content h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.kpi-content span {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* ================= Activity Section ================= */
+
+.section-header h3 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.activity-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    border: 1px solid var(--border-subtle);
+    height: 100%;
+    transition: 0.2s ease;
+}
+
+.activity-card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.activity-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.activity-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.activity-list li:last-child {
+    border-bottom: none;
+}
+
+.activity-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-right: 6px;
+}
+
+.activity-text {
+    font-size: 14px;
+}
+
+.empty-state {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    padding: 12px 0;
+}
+
+/* ================= Soft Badges ================= */
+
+.badge-soft-primary {
+    background: rgba(37,99,235,0.15);
+    color: #3b82f6;
+}
+
+.badge-soft-warning {
+    background: rgba(245,158,11,0.15);
+    color: #f59e0b;
+}
+
+.badge-soft-success {
+    background: rgba(16,185,129,0.15);
+    color: #10b981;
+}
+
+.badge-soft-primary,
+.badge-soft-warning,
+.badge-soft-success {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+</style>
+
 {% endblock %}
