@@ -32,5 +32,18 @@
         </div>
     </div>
 </div>
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Deductions</h5>
+        <p><strong>Total Deductions:</strong> Ksh {{ total_deductions|default:0 }}</p>
+        <ul>
+            {% for item in deduction_breakdown %}
+                <li>{{ item.type }}: Ksh {{ item.amount }}</li>
+            {% empty %}
+                <li>No deductions found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 <a href="/vehicles/" class="btn btn-secondary">Back to Vehicles</a>
 {% endblock %}

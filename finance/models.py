@@ -24,10 +24,19 @@ class RevenueLog(models.Model):
 
 	def __str__(self):
 		return f"{self.vehicle_id} revenue on {self.date}"
-from django.db import models
-import uuid
 
 class Payment(models.Model):
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
+		# Only update outstanding_balance for installment payments
+		if self.payment_type == 'INSTALLMENT' and self.vehicle_id:
+			from fleet.models import Vehicle
+			try:
+				vehicle = Vehicle.objects.get(id=self.vehicle_id)
+				vehicle.outstanding_balance = vehicle.outstanding_balance - self.amount
+				vehicle.save()
+			except Vehicle.DoesNotExist:
+				pass
 	PAYMENT_TYPE_CHOICES = [
 		("INSTALLMENT", "Installment"),
 		("DEPOSIT", "Deposit"),

@@ -12,6 +12,7 @@
             <th>Description</th>
             <th>Debit</th>
             <th>Credit</th>
+            <th>Deductions</th>
             <th>Balance</th>
             <th>Actions</th>
         </tr>
@@ -24,6 +25,11 @@
             <td>{{ entry.description }}</td>
             <td>Ksh {{ entry.debit }}</td>
             <td>Ksh {{ entry.credit }}</td>
+            <td>
+                {% if entry.account.account_type == "EXPENSE" or "deduct" in entry.description|lower %}
+                    Ksh {{ entry.debit }}
+                {% else %}-{% endif %}
+            </td>
             <td>Ksh {{ entry.balance }}</td>
             <td>
                 <a href="/accounting/{{ entry.id }}/" class="btn btn-sm btn-outline-info">View</a>

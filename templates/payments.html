@@ -12,6 +12,7 @@
             <th>Paid To</th>
             <th>Amount</th>
             <th>Type</th>
+            <th>Deductions</th>
             <th>M-Pesa Code</th>
             <th>Receipt</th>
             <th>Actions</th>
@@ -25,6 +26,11 @@
             <td>{{ payment.paid_to }}</td>
             <td>Ksh {{ payment.amount }}</td>
             <td>{{ payment.payment_type }}</td>
+            <td>
+                {% if payment.payment_type == 'PENALTY' or payment.payment_type == 'INSURANCE' or payment.payment_type == 'SERVICE' or payment.payment_type == 'REPAIR' or payment.payment_type == 'OTHER' %}
+                    Ksh {{ payment.amount }}
+                {% else %}-{% endif %}
+            </td>
             <td>{{ payment.mpesa_code }}</td>
             <td>
                 {% if payment.receipt_image %}

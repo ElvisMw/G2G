@@ -1,59 +1,123 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Fleet Overview</h5>
-                <p class="card-text">Track all vehicles, status, and assignments.</p>
-                <a href="/vehicles/" class="btn btn-primary">View Vehicles</a>
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="alert alert-primary d-flex align-items-center" role="alert">
+            <div class="me-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0d6efd" class="bi bi-speedometer2" viewBox="0 0 16 16">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v4.707l2.146 2.147a.5.5 0 0 1-.708.708l-2.25-2.25A.5.5 0 0 1 7.5 9V4.5A.5.5 0 0 1 8 4z"/>
+                  <path d="M3.278 14A7 7 0 1 1 14 8a7 7 0 0 1-10.722 6zM8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14z"/>
+                </svg>
             </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Financial Dashboard</h5>
-                <p class="card-text">Monitor revenue, expenses, and profitability.</p>
-                <a href="/reports/" class="btn btn-success">View Reports</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Compliance & Contracts</h5>
-                <p class="card-text">Manage contracts, compliance, and documentation.</p>
-                <a href="/contracts/" class="btn btn-warning">View Contracts</a>
+            <div>
+                <h4 class="alert-heading mb-1">Welcome to Glory to God Vehicles Dashboard</h4>
+                <p class="mb-0">Today is <strong>{{ now|date:'l, F j, Y' }}</strong>. Here is a summary of your fleet and finances.</p>
             </div>
         </div>
     </div>
 </div>
-<div class="mt-5">
-    <h4>Quick Stats</h4>
-    <div class="row text-center">
-        <div class="col">
-            <div class="p-3 bg-light rounded shadow-sm">
-                <div class="fs-2 fw-bold text-primary">{{ total_vehicles|default:0 }}</div>
-                <div>Vehicles</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0d6efd" class="bi bi-truck" viewBox="0 0 16 16">
+                      <path d="M0 1.5A.5.5 0 0 1 .5 1h9a.5.5 0 0 1 .5.5V3h2.5A1.5 1.5 0 0 1 14 4.5V6h1.5a.5.5 0 0 1 .5.5v2.086a1.5 1.5 0 0 1-.44 1.06l-2.5 2.5A1.5 1.5 0 0 1 11.086 13H10.5a1.5 1.5 0 0 1-1.415-1H2.5A1.5 1.5 0 0 1 1 10.5v-8A.5.5 0 0 1 1.5 2H2V1.5z"/>
+                    </svg>
+                </div>
+                <div class="fs-3 fw-bold text-primary">{{ total_vehicles|default:0 }}</div>
+                <div class="text-muted">Vehicles</div>
             </div>
         </div>
-        <div class="col">
-            <div class="p-3 bg-light rounded shadow-sm">
-                <div class="fs-2 fw-bold text-success">{{ total_riders|default:0 }}</div>
-                <div>Riders</div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#198754" class="bi bi-person-badge" viewBox="0 0 16 16">
+                      <path d="M6.5 2a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zM2 13s-1 0-1-1 1-4 7-4 7 3 7 4-1 1-1 1H2zm13-1c0-1.104-2.686-3-7-3s-7 1.896-7 3 2.686 3 7 3 7-1.896 7-3z"/>
+                    </svg>
+                </div>
+                <div class="fs-3 fw-bold text-success">{{ total_riders|default:0 }}</div>
+                <div class="text-muted">Riders</div>
             </div>
         </div>
-        <div class="col">
-            <div class="p-3 bg-light rounded shadow-sm">
-                <div class="fs-2 fw-bold text-danger">Ksh {{ total_outstanding|default:'0' }}</div>
-                <div>Outstanding Liabilities</div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#dc3545" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                      <path d="M11 1a2 2 0 0 1 2 2v1h1.5A1.5 1.5 0 0 1 16 5.5v5A1.5 1.5 0 0 1 14.5 12H13v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H1.5A1.5 1.5 0 0 1 0 10.5v-5A1.5 1.5 0 0 1 1.5 4H3V3a2 2 0 0 1 2-2h6zm-6 1a1 1 0 0 0-1 1v1h8V3a1 1 0 0 0-1-1H5zm9 3H2a.5.5 0 0 0-.5.5v5a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5v-5a.5.5 0 0 0-.5-.5z"/>
+                    </svg>
+                </div>
+                <div class="fs-3 fw-bold text-danger">Ksh {{ total_outstanding|default:'0' }}</div>
+                <div class="text-muted">Outstanding Liabilities</div>
             </div>
         </div>
-        <div class="col">
-            <div class="p-3 bg-light rounded shadow-sm">
-                <div class="fs-2 fw-bold text-info">Ksh {{ total_revenue|default:'0' }}</div>
-                <div>Monthly Revenue</div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#0dcaf0" class="bi bi-bar-chart-line" viewBox="0 0 16 16">
+                      <path d="M0 0h1v15h15v1H0V0zm10 10h2v3h-2v-3zm-3-3h2v6H7V7zm-3 2h2v4H4V9z"/>
+                    </svg>
+                </div>
+                <div class="fs-3 fw-bold text-info">Ksh {{ total_revenue|default:'0' }}</div>
+                <div class="text-muted">Monthly Revenue</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light fw-bold">Recent Activity</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6 class="fw-bold">Recent Payments</h6>
+                        <ul class="list-group list-group-flush small">
+                            {% for payment in recent_payments %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>{{ payment.date_paid|date:'M d' }}: {{ payment.paid_from }} → {{ payment.paid_to }}</span>
+                                    <span class="badge bg-primary">Ksh {{ payment.amount }}</span>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No recent payments.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold">Recent Maintenance</h6>
+                        <ul class="list-group list-group-flush small">
+                            {% for record in recent_maintenance %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>{{ record.date|date:'M d' }}: {{ record.category }}</span>
+                                    <span class="badge bg-warning text-dark">Ksh {{ record.amount }}</span>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No recent maintenance.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h6 class="fw-bold">Recent Contracts</h6>
+                        <ul class="list-group list-group-flush small">
+                            {% for contract in recent_contracts %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>{{ contract.start_date|date:'M d' }}: Vehicle {{ contract.vehicle_id|slice:":6" }}...</span>
+                                    <span class="badge bg-success">{{ contract.status }}</span>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No recent contracts.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
