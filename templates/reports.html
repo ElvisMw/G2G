@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Generated Reports</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Type</th>
+                        <th>UUID</th>
+            <th>Generated For</th>
+            <th>Date</th>
+            <th>File</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in reports %}
+        <tr>
+            <td>{{ report.get_report_type_display }}</td>
+                        <td>{{ report.id }}</td>
+            <td>{{ report.generated_for }}</td>
+            <td>{{ report.generated_at|date:'Y-m-d H:i' }}</td>
+            <td>
+                {% if report.file %}
+                <a href="{{ report.file.url }}" class="btn btn-sm btn-outline-primary" download>Download</a>
+                {% else %}-{% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="text-center">No reports found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

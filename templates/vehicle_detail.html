@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Vehicle Details</h2>
+<p><strong>Vehicle UUID:</strong> <span class="text-monospace">{{ vehicle.id }}</span></p>
+<div class="card mb-4">
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if vehicle.image %}
+            <img src="{{ vehicle.image.url }}" class="img-fluid rounded-start" alt="Vehicle Image">
+            {% else %}
+            <div class="text-center p-5">No Image</div>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ vehicle.registration_number }} - {{ vehicle.make }} {{ vehicle.model }}</h5>
+                <p class="card-text"><strong>Status:</strong> {{ vehicle.status }}</p>
+                <p class="card-text"><strong>Engine Number:</strong> {{ vehicle.engine_number }}</p>
+                <p class="card-text"><strong>Chassis Number:</strong> {{ vehicle.chassis_number }}</p>
+                <p class="card-text"><strong>Actual Price:</strong> Ksh {{ vehicle.actual_price }}</p>
+                <p class="card-text"><strong>Hire Purchase Price:</strong> Ksh {{ vehicle.hire_purchase_price }}</p>
+                <p class="card-text"><strong>Deposit Paid:</strong> Ksh {{ vehicle.deposit_paid }}</p>
+                <p class="card-text"><strong>Monthly Installment:</strong> Ksh {{ vehicle.monthly_installment }}</p>
+                <p class="card-text"><strong>Outstanding Balance:</strong> Ksh {{ vehicle.outstanding_balance }}</p>
+                <p class="card-text"><strong>Total Kilometers:</strong> {{ vehicle.total_kilometers }}</p>
+                <p class="card-text"><strong>In Service Days:</strong> {{ vehicle.in_service_days }}</p>
+                <p class="card-text"><strong>Off Days:</strong> {{ vehicle.off_days }}</p>
+                <p class="card-text"><strong>Risk Assessment:</strong> {{ vehicle.risk_assessment }}</p>
+                <p class="card-text"><strong>Asset Recovery Status:</strong> {{ vehicle.asset_recovery_status }}</p>
+                <p class="card-text"><small class="text-muted">Created: {{ vehicle.created_at }} | Updated: {{ vehicle.updated_at }}</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="/vehicles/" class="btn btn-secondary">Back to Vehicles</a>
+{% endblock %}

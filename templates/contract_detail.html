@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Contract Details</h2>
+<p><strong>Contract UUID:</strong> <span class="text-monospace">{{ contract.id }}</span></p>
+<div class="card mb-4">
+    <div class="card-body">
+        <p><strong>Vehicle ID:</strong> {{ contract.vehicle_id }}</p>
+        <p><strong>Rider ID:</strong> {{ contract.rider_id }}</p>
+        <p><strong>Status:</strong> {{ contract.status }}</p>
+        <p><strong>Start Date:</strong> {{ contract.start_date }}</p>
+        <p><strong>End Date:</strong> {{ contract.end_date }}</p>
+        <p><strong>Revenue Model:</strong> {{ contract.revenue_model }}</p>
+        <p><strong>Security Deposit:</strong> Ksh {{ contract.security_deposit }}</p>
+        <p><strong>Terms:</strong> {{ contract.terms }}</p>
+        {% if contract.contract_file %}
+        <p><strong>File:</strong> <a href="{{ contract.contract_file.url }}" download>Download</a></p>
+        {% endif %}
+        <p><small class="text-muted">Created: {{ contract.created_at }} | Updated: {{ contract.updated_at }}</small></p>
+    </div>
+</div>
+<a href="/contracts/" class="btn btn-secondary">Back to Contracts</a>
+{% endblock %}

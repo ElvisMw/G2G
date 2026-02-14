@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Riders</h2>
+<div class="d-flex justify-content-end mb-3">
+    <a href="#" class="btn btn-primary">Add Rider</a>
+</div>
+<table class="table table-hover table-bordered align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>National ID</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Assigned Vehicle</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rider in riders %}
+        <tr>
+            <td>
+                {% if rider.passport_photo %}
+                <img src="{{ rider.passport_photo.url }}" alt="Rider" class="img-thumbnail" style="width:60px;">
+                {% else %}-{% endif %}
+            </td>
+            <td>{{ rider.first_name }} {{ rider.last_name }}</td>
+            <td>{{ rider.national_id }}</td>
+            <td>{{ rider.phone_number }}</td>
+            <td><span class="badge bg-{{ rider.status_color }}">{{ rider.status }}</span></td>
+            <td>{{ rider.assigned_vehicle }}</td>
+            <td>
+                <a href="/riders/{{ rider.id }}/" class="btn btn-sm btn-outline-info">View</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center">No riders found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

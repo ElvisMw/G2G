@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Vehicles</h2>
+<div class="d-flex justify-content-end mb-3">
+    <a href="#" class="btn btn-primary">Add Vehicle</a>
+</div>
+<table class="table table-hover table-bordered align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Image</th>
+            <th>Reg. Number</th>
+            <th>Make/Model</th>
+            <th>Status</th>
+            <th>Hire Price</th>
+            <th>Outstanding</th>
+            <th>Assigned Rider</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vehicle in vehicles %}
+        <tr>
+            {% if vehicle.image %}
+            <td><img src="{{ vehicle.image.url }}" alt="Vehicle" class="img-thumbnail" style="width:60px;"></td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+            <td>{{ vehicle.registration_number }}</td>
+            <td>{{ vehicle.make }} {{ vehicle.model }}</td>
+            <td><span class="badge bg-{{ vehicle.status_color }}">{{ vehicle.status }}</span></td>
+            <td>Ksh {{ vehicle.hire_purchase_price }}</td>
+            <td>Ksh {{ vehicle.outstanding_balance }}</td>
+            <td>{{ vehicle.assigned_rider }}</td>
+            <td>
+                <a href="/vehicles/{{ vehicle.id }}/" class="btn btn-sm btn-outline-info">View</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center">No vehicles found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
