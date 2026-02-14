@@ -1,9 +1,15 @@
+/* Curved edges for all tables */
+table {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
 /* Calligraphic (Cursive) Slogan */
 .caligraphic {
-  font-family: 'Great Vibes', 'Dancing Script', 'Pacifico', 'Brush Script MT', cursive, sans-serif;
+  font-family: 'Dancing Script', 'Pacifico', 'Brush Script MT', cursive, sans-serif !important;
   font-style: italic;
   letter-spacing: 0.01em;
-  font-weight: 600;
+  font-weight: 700;
 }
 /* KPI CARDS */
 .kpi-card {
@@ -221,7 +227,7 @@ body {
 /* TYPOGRAPHY */
 .main-heading {
   font-size: 2.8rem;
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: 'Poppins', 'Inter', 'Segoe UI', Arial, sans-serif !important;
   font-weight: 800;
   letter-spacing: 0.01em;
   color: var(--color-text);
