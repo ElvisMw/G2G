@@ -1,40 +1,145 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="mb-4">Vehicles</h2>
-<table class="table table-hover table-bordered align-middle">
-    <thead class="table-light">
-        <tr>
-            <th>Image</th>
-            <th>Reg. Number</th>
-            <th>Make/Model</th>
-            <th>Status</th>
-            <th>Hire Price</th>
-            <th>Outstanding</th>
-            <th>Assigned Rider</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for vehicle in vehicles %}
-        <tr>
-            {% if vehicle.image %}
-            <td><img src="{{ vehicle.image.url }}" alt="Vehicle" class="img-thumbnail" style="width:60px;"></td>
-            {% else %}
-            <td>-</td>
-            {% endif %}
-            <td>{{ vehicle.registration_number }}</td>
-            <td>{{ vehicle.make }} {{ vehicle.model }}</td>
-            <td><span class="badge bg-{{ vehicle.status_color }}">{{ vehicle.status }}</span></td>
-            <td>Ksh {{ vehicle.hire_purchase_price }}</td>
-            <td>Ksh {{ vehicle.outstanding_balance }}</td>
-            <td>{{ vehicle.assigned_rider }}</td>
-            <td>
-                <a href="/vehicles/{{ vehicle.id }}/" class="btn btn-sm btn-outline-info">View</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="8" class="text-center">No vehicles found.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<!-- ===== Page Header ===== -->
+<div class="dashboard-intro mb-4">
+    <h2 class="section-title">Vehicles</h2>
+    <p class="section-subtitle">
+        Manage and monitor all fleet vehicles
+    </p>
+</div>
+
+<!-- ===== Table Card Wrapper ===== -->
+<div class="table-card">
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Image</th>
+                    <th>Reg. Number</th>
+                    <th>Make/Model</th>
+                    <th>Status</th>
+                    <th>Hire Price</th>
+                    <th>Outstanding</th>
+                    <th>Assigned Rider</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in vehicles %}
+                <tr>
+                    {% if vehicle.image %}
+                    <td>
+                        <img src="{{ vehicle.image.url }}"
+                             alt="Vehicle"
+                             class="vehicle-thumb">
+                    </td>
+                    {% else %}
+                    <td class="text-muted">-</td>
+                    {% endif %}
+
+                    <td class="fw-semibold">
+                        {{ vehicle.registration_number }}
+                    </td>
+
+                    <td>
+                        {{ vehicle.make }} {{ vehicle.model }}
+                    </td>
+
+                    <td>
+                        <span class="badge bg-{{ vehicle.status_color }} rounded-pill px-3">
+                            {{ vehicle.status_display }}
+                        </span>
+                    </td>
+
+                    <td class="fw-semibold">
+                        Ksh {{ vehicle.hire_purchase_price|floatformat:0 }}
+                    </td>
+
+                    <td class="text-danger fw-semibold">
+                        Ksh {{ vehicle.outstanding_balance|floatformat:0 }}
+                    </td>
+
+                    <td>
+                        {{ vehicle.assigned_rider_display|default:"—" }}
+                    </td>
+
+                    <td>
+                        <a href="/vehicles/{{ vehicle.id }}/"
+                           class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                            View
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center py-4 empty-state">
+                        <i class="bi bi-truck fs-4 d-block mb-2"></i>
+                        No vehicles found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<style>
+/* ================= Vehicles Page ================= */
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Table Card */
+.table-card {
+    background: var(--bg-card);
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+}
+
+/* Table Enhancements */
+.table thead th {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.table tbody tr {
+    transition: var(--transition);
+}
+
+.table tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+}
+
+/* Image Styling */
+.vehicle-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+}
+
+/* Empty State */
+.empty-state {
+    color: var(--text-muted);
+}
+
+/* Soft button hover */
+.btn-outline-primary:hover {
+    transform: translateY(-1px);
+}
+</style>
+
 {% endblock %}

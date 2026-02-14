@@ -1,49 +1,230 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="mb-4">Vehicle Details</h2>
-<p><strong>Vehicle UUID:</strong> <span class="text-monospace">{{ vehicle.id }}</span></p>
-<div class="card mb-4">
+
+<!-- ===== Page Header ===== -->
+<div class="dashboard-intro mb-4">
+    <h2 class="section-title">Vehicle Details</h2>
+    <p class="section-subtitle">
+        Detailed vehicle information and financial summary
+    </p>
+</div>
+
+<p class="uuid-text">
+    <strong>Vehicle UUID:</strong>
+    <span class="uuid-badge">{{ vehicle.id }}</span>
+</p>
+
+<!-- ===== Vehicle Info Card ===== -->
+<div class="card vehicle-card mb-4 shadow-sm">
     <div class="row g-0">
         <div class="col-md-4">
             {% if vehicle.image %}
-            <img src="{{ vehicle.image.url }}" class="img-fluid rounded-start" alt="Vehicle Image">
+            <img src="{{ vehicle.image.url }}"
+                 class="img-fluid rounded-start vehicle-image"
+                 alt="Vehicle Image">
             {% else %}
-            <div class="text-center p-5">No Image</div>
+            <div class="image-placeholder">
+                <i class="bi bi-truck fs-1 mb-2"></i>
+                <span>No Image Available</span>
+            </div>
             {% endif %}
         </div>
+
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">{{ vehicle.registration_number }} - {{ vehicle.make }} {{ vehicle.model }}</h5>
-                <p class="card-text"><strong>Status:</strong> {{ vehicle.status }}</p>
+
+                <h5 class="vehicle-title mb-3">
+                    {{ vehicle.registration_number }}
+                    <span class="vehicle-sub">
+                        {{ vehicle.make }} {{ vehicle.model }}
+                    </span>
+                </h5>
+
+                <p class="card-text">
+                    <strong>Status:</strong>
+                    <span class="badge bg-light text-dark border rounded-pill px-3">
+                        {{ vehicle.status }}
+                    </span>
+                </p>
+
+                <div class="divider"></div>
+
                 <p class="card-text"><strong>Engine Number:</strong> {{ vehicle.engine_number }}</p>
                 <p class="card-text"><strong>Chassis Number:</strong> {{ vehicle.chassis_number }}</p>
-                <p class="card-text"><strong>Actual Price:</strong> Ksh {{ vehicle.actual_price }}</p>
-                <p class="card-text"><strong>Hire Purchase Price:</strong> Ksh {{ vehicle.hire_purchase_price }}</p>
-                <p class="card-text"><strong>Deposit Paid:</strong> Ksh {{ vehicle.deposit_paid }}</p>
-                <p class="card-text"><strong>Monthly Installment:</strong> Ksh {{ vehicle.monthly_installment }}</p>
-                <p class="card-text"><strong>Outstanding Balance:</strong> Ksh {{ vehicle.outstanding_balance }}</p>
+
+                <div class="divider"></div>
+
+                <p class="card-text"><strong>Actual Price:</strong>
+                    Ksh {{ vehicle.actual_price|floatformat:0 }}
+                </p>
+
+                <p class="card-text"><strong>Hire Purchase Price:</strong>
+                    Ksh {{ vehicle.hire_purchase_price|floatformat:0 }}
+                </p>
+
+                <p class="card-text"><strong>Deposit Paid:</strong>
+                    Ksh {{ vehicle.deposit_paid|floatformat:0 }}
+                </p>
+
+                <p class="card-text"><strong>Monthly Installment:</strong>
+                    Ksh {{ vehicle.monthly_installment|floatformat:0 }}
+                </p>
+
+                <p class="card-text outstanding">
+                    <strong>Outstanding Balance:</strong>
+                    Ksh {{ vehicle.outstanding_balance|floatformat:0 }}
+                </p>
+
+                <div class="divider"></div>
+
                 <p class="card-text"><strong>Total Kilometers:</strong> {{ vehicle.total_kilometers }}</p>
                 <p class="card-text"><strong>In Service Days:</strong> {{ vehicle.in_service_days }}</p>
                 <p class="card-text"><strong>Off Days:</strong> {{ vehicle.off_days }}</p>
+
+                <div class="divider"></div>
+
                 <p class="card-text"><strong>Risk Assessment:</strong> {{ vehicle.risk_assessment }}</p>
                 <p class="card-text"><strong>Asset Recovery Status:</strong> {{ vehicle.asset_recovery_status }}</p>
-                <p class="card-text"><small class="text-muted">Created: {{ vehicle.created_at }} | Updated: {{ vehicle.updated_at }}</small></p>
+
+                <p class="card-text mt-3">
+                    <small class="text-muted">
+                        Created: {{ vehicle.created_at }} |
+                        Updated: {{ vehicle.updated_at }}
+                    </small>
+                </p>
+
             </div>
         </div>
     </div>
 </div>
-<div class="card mt-4">
+
+<!-- ===== Deductions Card ===== -->
+<div class="card deduction-card mt-4 shadow-sm">
     <div class="card-body">
-        <h5 class="card-title">Deductions</h5>
-        <p><strong>Total Deductions:</strong> Ksh {{ total_deductions|default:0 }}</p>
-        <ul>
+
+        <h5 class="card-title mb-3">Deductions</h5>
+
+        <p class="fw-semibold mb-3">
+            <strong>Total Deductions:</strong>
+            Ksh {{ total_deductions|default:0|floatformat:0 }}
+        </p>
+
+        <ul class="deduction-list">
             {% for item in deduction_breakdown %}
-                <li>{{ item.type }}: Ksh {{ item.amount }}</li>
+                <li>
+                    <span>{{ item.type }}</span>
+                    <span class="deduction-amount">
+                        Ksh {{ item.amount|floatformat:0 }}
+                    </span>
+                </li>
             {% empty %}
-                <li>No deductions found.</li>
+                <li class="text-muted">No deductions found.</li>
             {% endfor %}
         </ul>
+
     </div>
 </div>
-<a href="/vehicles/" class="btn btn-secondary">Back to Vehicles</a>
+
+<a href="/vehicles/" class="btn btn-outline-secondary rounded-pill px-4 mt-4">
+    Back to Vehicles
+</a>
+
+<style>
+/* ===== Light Theme Styling ===== */
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.section-subtitle {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.uuid-text {
+    margin-bottom: 1rem;
+    color: #6c757d;
+}
+
+.uuid-badge {
+    background: #f8f9fa;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: monospace;
+    border: 1px solid #e9ecef;
+}
+
+/* Cards */
+.vehicle-card,
+.deduction-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+/* Image */
+.vehicle-image {
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    height: 100%;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+}
+
+/* Title */
+.vehicle-title {
+    font-weight: 600;
+}
+
+.vehicle-sub {
+    display: block;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Divider */
+.divider {
+    height: 1px;
+    background: #e9ecef;
+    margin: 1rem 0;
+}
+
+/* Outstanding Highlight */
+.outstanding {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* Deductions */
+.deduction-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.deduction-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.deduction-list li:last-child {
+    border-bottom: none;
+}
+
+.deduction-amount {
+    font-weight: 600;
+    color: #dc3545;
+}
+</style>
+
 {% endblock %}

@@ -1,10 +1,22 @@
 from django.shortcuts import render
 
 
+
 from .models import Vehicle
+from riders.models import Rider
 
 def vehicle_list(request):
-	vehicles = Vehicle.objects.all()
+	vehicles = list(Vehicle.objects.all())
+	# Map vehicle.id to assigned rider (if any)
+	rider_map = {r.assigned_vehicle: r for r in Rider.objects.filter(assigned_vehicle__isnull=False)}
+	status_map = dict(Vehicle.STATUS_CHOICES)
+	for v in vehicles:
+		assigned_rider = rider_map.get(v.id)
+		if assigned_rider:
+			v.assigned_rider_display = f"{assigned_rider.first_name} {assigned_rider.last_name}"
+		else:
+			v.assigned_rider_display = None
+		v.status_display = status_map.get(v.status, v.status)
 	return render(request, "vehicles.html", {"vehicles": vehicles})
 
 def vehicle_detail(request, pk):
